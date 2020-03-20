@@ -124,8 +124,9 @@ run_ADARR <- function(input.file.path, annotation.granges.path, complete.annotat
   hg38_repeat_list = as.character(hg38_repeat_meta$repeat.)
   names(hg38_repeat_list) = hg38_repeat_meta$id
 
-  ### internal function for annotations
-  assign_annot <- function(i){
+  print("Assigning annotations to RES")
+
+  for(i in 1:nrow(input.sprint)){
     start.time = proc.time()
     select.res = as.character(input.sprint$res_name[i])
     subset.i = subset(input_annotated_df, as.character(res_name) == select.res)
@@ -158,36 +159,31 @@ run_ADARR <- function(input.file.path, annotation.granges.path, complete.annotat
 
     assign_annot = data.frame(identified_genes, identified_annotations, repeat_assignments)
 
+    complete_annotated = cbind(input.sprint[i,],assign_annot)
+
+    if(i == 1){
+
+      write.table(x = complete_annotated, quote = F, sep = "\t", row.names = F,
+                  file = complete.annotated.path)
+    }else{
+      write.table(x = complete_annotated, quote = F, sep = "\t", row.names = F,
+                  file = complete.annotated.path, col.names = F, append = T)
+    }
+
     total.time = proc.time() - start.time
     if(i %% 100 == 0){
+      print("RES processed: ")
       print(i)
-      print(assign_annot)
-      print("minutes left")
+      print("Minutes left:")
       print(total.time[3]*(nrow(input.sprint)-i)/60)
 
     }
-    return(assign_annot)
-
 
   }
 
-  annot_list = list()
-
-  for(i in 1:nrow(input.sprint)){
-    select.i = assign_annot(i)
-
-    annot_list[[i]] = select.i
-  }
 
 
-  annot.df.add = do.call(rbind, annot_list)
-
-  complete.annotation = cbind(input.sprint, annot.df.add)
-
-  save(list="complete.annotation", file = complete.annotated.path)
-
-  run_ADARR = list(input.sprint, input_annotated, complete.annotation)
-  names(run_ADARR) = c("inputfile", "annotations", "complete_annotations")
+  run_ADARR = NULL
 
   return(run_ADARR)
 
