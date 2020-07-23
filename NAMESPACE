@@ -2,4 +2,11 @@
 
 export(AD_DP)
 export(RES.name)
+export(filter_annotated_results)
+export(filter_by_transitions)
+export(getGeneMatrix)
+export(partition_files)
 export(run_ADARR)
+export(run_ADARR_from_df)
+export(run_ADARR_partition)
+export(table_identified_genes)
