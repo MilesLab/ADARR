@@ -17,7 +17,7 @@ This R package can be installed via Github as follows.
 ```
 install.packages("devtools")
 library(devtools)
-devtools::install_github("MilesLab/ADARR/")
+devtools::install_github("MilesLab/ADARR")
 ```
 
 Of note, this package requires alignment to the hg38 human genome.  Other annotations may be available in the future. 
