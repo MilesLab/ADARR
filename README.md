@@ -22,4 +22,6 @@ devtools::install_github("MilesLab/ADARR")
 
 Of note, this package requires alignment to the hg38 human genome.  Other annotations may be available in the future. 
 
+Documentation for the functions of ADARR are provided here. 
 
+[https://github.com/MilesLab/ADARR/raw/main/ADARR_0.1.0.pdf](https://github.com/MilesLab/ADARR/raw/main/ADARR_0.1.0.pdf)
